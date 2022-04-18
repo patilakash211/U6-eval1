@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const winston = require('winston');
+
 
 const logger=(req,res,next)=>{
     let url = req.headers.host + req.originalUrl;
@@ -11,14 +11,14 @@ app.use(logger)
 
 
 
-const permission=(req,res,next)=>{
-    var rname = req.route.path  
+const permission=(request,result,next)=>{
+    var rname = request.route.path  
     
         var obj={
             route:rname,
             permission:true
         }
-        req.data = obj;
+        request.data = obj;
         next()    
 }
 
@@ -40,7 +40,5 @@ app.get("/authors",permission, (request,response,next) => {
   
 }
 )
-
-
 
 module.exports = app;
